@@ -1,0 +1,195 @@
+#include<windows.h>
+#include<GL/glut.h>
+#include<stdlib.h>
+#include<stdio.h>
+
+float x1[4]={20,20,80},x2[4]={20,80,80},yy1[4]={80,50,50},y2[4]={50,50,80};
+int bresh_x1[4]={20}, bresh_y1[4]={80}, bresh_x2[4]={80}, bresh_y2[4]={80};
+
+
+void circle() {
+ glColor3f(1.0, 0.0, 0.0);
+ glPointSize(2.0);
+ float r =70;
+ float x = 0, y = r;
+ float p = 1 - r;
+ glBegin(GL_POINTS);
+ while (x != y)
+ {
+  x++;
+  if (p < 0) {
+   p += 2 * (x + 1) + 1;
+  }
+  else {
+   y--;
+   p += 2 * (x + 1) + 1 - 2 * (y - 1);
+  }
+  glVertex2i(x, y);
+  glVertex2i(-x, y);
+  glVertex2i(x, -y);
+  glVertex2i(-x, -y);
+
+  glVertex2i(y, x);
+  glVertex2i(-y, x);
+  glVertex2i(y, -x);
+  glVertex2i(-y, -x);
+
+ }
+ glEnd();
+
+}
+
+
+
+//bresh begins
+
+void draw_pixel(int x, int y) {
+        glColor3f(0.0, 1.0, 0.0);
+		glBegin(GL_POINTS);
+		glVertex2i(x, y);
+		glEnd();
+	}
+
+
+void draw_line(int bresh_x1, int bresh_x2, int bresh_y1, int bresh_y2) {
+	int dx, dy, i, e;
+	int incx, incy, inc1, inc2;
+	int x,y;
+
+
+	dx = bresh_x2-bresh_x1;
+	dy = bresh_y2-bresh_y1;
+
+
+	if (dx < 0) dx = -dx;
+	if (dy < 0) dy = -dy;
+	incx = 1;
+	if (bresh_x2 < bresh_x1) incx = -1;
+	incy = 1;
+	if (bresh_y2 < bresh_y1) incy = -1;
+	x = bresh_x1; y = bresh_y1;
+	if (dx > dy) {
+		draw_pixel(x, y);
+		e = 2 * dy-dx;
+		inc1 = 2*(dy-dx);
+		inc2 = 2*dy;
+		for (i=0; i<dx; i++) {
+			if (e >= 0) {
+				y += incy;
+				e += inc1;
+			}
+			else
+				e += inc2;
+			x += incx;
+			draw_pixel(x, y);
+		}
+
+
+	} else {
+		draw_pixel(x, y);
+		e = 2*dx-dy;
+		inc1 = 2*(dx-dy);
+		inc2 = 2*dx;
+		for (i=0; i<dy; i++) {
+			if (e >= 0) {
+				x += incx;
+				e += inc1;
+			}
+			else
+				e += inc2;
+			y += incy;
+			draw_pixel(x, y);
+		}
+	}
+}
+// bresham end here
+//cicle begins
+
+
+
+void display()
+{
+
+  //circle
+  circle();
+
+
+
+    // dda line starts here
+int i;
+
+for(i=0;i<3;i++){
+float dy,dx,step,x,y,k,Xin,Yin;
+dx=x2[i]-x1[i];
+dy=y2[i]-yy1[i];
+
+if(abs(dx)> abs(dy))
+{
+step = abs(dx);
+}
+else
+step = abs(dy);
+
+Xin = dx/step;
+Yin = dy/step;
+
+x= x1[i];
+y=yy1[i];
+glColor3f(0.0, 1.0, 0.0);
+glBegin(GL_POINTS);
+glVertex2i(x,y);
+glEnd();
+
+for (k=1 ;k<=step;k++)
+{
+x= x + Xin;
+y= y + Yin;
+
+glBegin(GL_POINTS);
+glVertex2i(x,y);
+glEnd();
+}
+} // dda ends here
+
+
+//bresh func
+for(i=0;i<1;i++){
+    draw_line(bresh_x1[i], bresh_x2[i], bresh_y1[i], bresh_y2[i]);
+}
+
+
+
+
+
+glFlush();
+}
+
+
+
+void init(void)
+{
+glClearColor(0.7,0.7,0.7,0.7);
+glMatrixMode(GL_PROJECTION);
+glViewport(0, 0, 500, 500);
+glLoadIdentity();
+gluOrtho2D(-250,250,-250,250);
+}
+
+int main(int argc, char** argv) {
+
+
+
+
+glutInit(&argc, argv);
+
+glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
+glutInitWindowSize (500, 500);
+glutInitWindowPosition (100,100);
+glutCreateWindow ("Shaheed Minar");
+init();
+glutDisplayFunc(display);
+
+glutMainLoop();
+
+return 0;
+}
