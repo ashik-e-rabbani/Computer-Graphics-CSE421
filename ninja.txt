@@ -1,0 +1,200 @@
+#include <GL/gl.h>
+#include <GL/glut.h>
+#include <stdio.h>
+
+
+
+void minar_circle(int h)
+{
+
+    int r = 175, x = 0, y, p;
+
+    y = r;
+
+    p = 1 - r;
+
+
+    int i = 0;
+
+    while (x < y)
+    {
+        if (p < 0)
+        {
+
+            x = x + 1;
+            y = y;
+            p = p + 2 * x + 1;
+            i++;
+
+
+        }
+        else
+        {
+
+
+            x = x + 1;
+            y = y - 1;
+            p = p + 2 * x - 2 * y + 1;
+            i++;
+
+
+
+
+        }
+
+        glColor3ub(218,57,58);
+
+        glBegin(GL_POLYGON);
+
+
+        glVertex2i(x, y + h);
+        glVertex2i(y, x + h);
+        glVertex2i(y, -x + h);
+
+        glVertex2i(x, -y + h);
+        glVertex2i(-x, -y + h);
+        glVertex2i(-y, -x + h);
+
+        glVertex2i(-y, x + h);
+        glVertex2i(-x, y + h);
+
+
+        glEnd();
+
+
+    }
+
+}
+
+void display(void)
+{
+    /* clear all pixels */
+    glClear(GL_COLOR_BUFFER_BIT);
+      //right
+       glColor3ub(0, 96,100);
+     glBegin(GL_POLYGON);
+
+
+        glVertex2i(600,320);
+        glVertex2i(500,320);
+        glVertex2i(500,-200);
+        glVertex2i(600,-200);
+
+
+        glEnd();
+        //right2
+
+       glColor3ub(0, 96,100);
+     glBegin(GL_POLYGON);
+
+
+        glVertex2i(400,400);
+        glVertex2i(300,400);
+        glVertex2i(300,-200);
+        glVertex2i(400,-200);
+
+
+        glEnd();
+
+        //left
+
+
+       glColor3ub(0, 96,100);
+     glBegin(GL_POLYGON);
+
+
+        glVertex2i(-600,320);
+        glVertex2i(-500,320);
+        glVertex2i(-500,-200);
+        glVertex2i(-600,-200);
+
+
+        glEnd();
+            glColor3ub(0, 96,100);
+     glBegin(GL_POLYGON);
+
+
+        glVertex2i(-400,400);
+        glVertex2i(-300,400);
+        glVertex2i(-300,-200);
+        glVertex2i(-400,-200);
+
+
+        glEnd();
+
+//mid
+        glColor3ub(0, 96,100);
+     glBegin(GL_POLYGON);
+
+
+        glVertex2i(-150,400);
+        glVertex2i(150,400);
+        glVertex2i(150,-200);
+        glVertex2i(-150,-200);
+
+
+        glEnd();
+
+           glColor3ub(0, 89, 90);
+     glBegin(GL_POLYGON);
+
+
+        glVertex2i(-200,500);
+        glVertex2i(100,500);
+        glVertex2i(150,400);
+        glVertex2i(-150,400);
+
+
+        glEnd();
+//floor
+      glColor3ub(100, 230,200);
+     glBegin(GL_POLYGON);
+
+
+        glVertex2i(-600,-200);
+        glVertex2i(600,-200);
+        glVertex2i(600,-250);
+        glVertex2i(-600,-250);
+
+
+        glEnd();
+
+
+
+
+    glColor3ub(255, 0, 0);
+
+    minar_circle(150);
+
+
+
+
+
+
+    glFlush();
+}
+
+void init(void)
+{
+
+    glClearColor(0, 0, 0, 0);
+    /* initialize viewing values */
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(-620, 620, -600, 600);
+}
+
+int main(int argc, char** argv)
+{
+
+
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(600, 600);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("Shaheed Minar");
+    init();
+    glutDisplayFunc(display);
+    glutMainLoop();
+    return 0;
+}

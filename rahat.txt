@@ -1,0 +1,437 @@
+#include <GL/gl.h>
+#include <GL/glut.h>
+#include <stdio.h>
+
+void canvas()
+{
+
+
+      glColor3ub(0, 125, 0);
+
+    glBegin(GL_POLYGON);
+
+
+    glVertex2i(-600, -600);
+
+    glVertex2i(600, -600);
+
+    glVertex2i(600, -200);
+
+    glVertex2i(-600, -200);
+
+
+
+    glEnd();
+
+
+
+    glColor3ub(0, 125, 0);
+
+    glBegin(GL_POLYGON);
+
+
+    glVertex2i(-600, -200);
+
+    glVertex2i(600, -200);
+
+    glVertex2i(600, 500);
+
+    glVertex2i(-600, 500);
+
+
+
+    glEnd();
+
+
+  glColor3ub(0, 125, 0);
+
+    glBegin(GL_POLYGON);
+
+
+    glVertex2i(-600, 500);
+
+    glVertex2i(600, 500);
+
+    glVertex2i(600, 600);
+
+    glVertex2i(-600, 600);
+
+
+
+    glEnd();
+
+
+
+
+}
+
+void sun(int h)
+{
+
+    int r = 175, x = 0, y, p;
+
+    y = r;
+
+    p = 1 - r;
+    //printf("p: %d\n", p);
+
+    int i = 0;
+
+    while (x < y)
+    {
+        if (p < 0)
+        {
+
+            x = x + 1;
+            y = y;
+            p = p + 2 * x + 1;
+            i++;
+
+
+        }
+        else
+        {
+
+
+            x = x + 1;
+            y = y - 1;
+            p = p + 2 * x - 2 * y + 1;
+            i++;
+
+
+
+
+        }
+
+        glColor3ub(255, 0, 0);
+
+        glBegin(GL_POLYGON);
+
+
+        glVertex2i(x, y + h);
+
+
+
+        glVertex2i(y, x + h);
+
+
+
+        glVertex2i(y, -x + h);
+
+
+
+        glVertex2i(x, -y + h);
+
+
+
+        glVertex2i(-x, -y + h);
+
+
+
+        glVertex2i(-y, -x + h);
+
+
+
+        glVertex2i(-y, x + h);
+
+
+
+        glVertex2i(-x, y + h);
+
+
+        glEnd();
+
+
+    }
+
+}
+
+void base()
+{
+
+
+
+    glColor3ub(255, 16, 64);
+
+    glBegin(GL_POLYGON);
+
+
+    glVertex2i(-515, -300);
+
+    glVertex2i(515, -300);
+
+    glVertex2i(485, -325);
+
+    glVertex2i(-485, -325);
+
+
+
+    glEnd();
+
+}
+
+void sidePiller(int x, int y, int h)
+{
+
+
+    glColor3ub(220, 225, 250);
+
+    glBegin(GL_POLYGON);
+
+
+    glVertex2i(-465 + x, -325 + y);
+
+    glVertex2i(-435 + x, -325 + y);
+
+    glVertex2i(-435 + x, 25 + y + h);
+
+    glVertex2i(-465 + x, 25 + y + h);
+
+
+
+    glEnd();
+
+    glColor3ub(220, 225, 250);
+    glBegin(GL_POLYGON);
+
+
+    glVertex2i(-385 + x, -325 + y);
+
+    glVertex2i(-355 + x, -325 + y);
+
+    glVertex2i(-355 + x, 25 + y + h);
+
+    glVertex2i(-385 + x, 25 + y + h);
+
+
+
+    glEnd();
+
+
+
+    glColor3ub(220, 225, 250);
+
+    glBegin(GL_POLYGON);
+
+
+    glVertex2i(-465 + x, 25 + y + h);
+
+    glVertex2i(-355 + x, 25 + y + h);
+
+    glVertex2i(-355 + x, 0 + y + h);
+
+    glVertex2i(-465 + x, 0 + y + h);
+
+
+
+    glEnd();
+
+}
+
+void middlePiller(int x, int y, int h)
+{
+
+
+    glColor3ub(220, 225, 250);
+
+    glBegin(GL_POLYGON);
+
+
+    glVertex2i(-145 + x, -325 + y);
+
+    glVertex2i(-115 + x, -325 + y);
+
+    glVertex2i(-115 + x, 200 + y + h);
+
+    glVertex2i(-145 + x, 200 + y + h);
+
+    glEnd();
+
+
+    glColor3ub(220, 225, 250);
+
+    glBegin(GL_POLYGON);
+
+
+    glVertex2i(-145 + x, 200 + y);
+
+    glVertex2i(-115 + x, 200 + y);
+
+    glVertex2i(-145 + x, 350 + y + h);
+
+    glVertex2i(-175 + x, 350 + y + h);
+
+    glEnd();
+
+
+    glColor3ub(220, 225, 250);
+
+    glBegin(GL_POLYGON);
+
+
+    glVertex2i(-15 + x, -325 + y);
+
+    glVertex2i(15 + x, -325 + y);
+
+    glVertex2i(15 + x, 200 + y + h);
+
+    glVertex2i(-15 + x, 200 + y + h);
+
+
+
+    glEnd();
+
+
+
+    glColor3ub(220, 225, 250);
+
+    glBegin(GL_POLYGON);
+
+
+    glVertex2i(-15 + x, 200 + y);
+
+    glVertex2i(15 + x, 200 + y);
+
+    glVertex2i(0 + x, 350 + y + h);
+
+    glVertex2i(-30 + x, 350 + y + h);
+
+
+
+    glEnd();
+
+
+
+    glColor3ub(220, 225, 250);
+
+    glBegin(GL_POLYGON);
+
+
+    glVertex2i(115 + x, -325 + y);
+
+    glVertex2i(145 + x, -325 + y);
+
+    glVertex2i(145 + x, 200 + y + h);
+
+    glVertex2i(115 + x, 200 + y + h);
+
+
+
+    glEnd();
+
+
+    glColor3ub(220, 225, 250);
+
+    glBegin(GL_POLYGON);
+
+
+    glVertex2i(115 + x, 200 + y);
+
+    glVertex2i(145 + x, 200 + y);
+
+    glVertex2i(125 + x, 350 + y + h);
+
+    glVertex2i(95 + x, 350 + y + h);
+
+
+
+    glEnd();
+
+
+
+    glColor3ub(220, 225, 250);
+
+    glBegin(GL_POLYGON);
+
+
+    glVertex2i(-175 + x, 350 + y);
+
+    glVertex2i(125 + x, 350 + y);
+
+    glVertex2i(120 + x, 380 + y + h);
+
+    glVertex2i(-180 + x, 380 + y + h);
+
+    glEnd();
+
+
+
+
+
+}
+
+void display(void)
+{
+    /* clear all pixels */
+    glClear(GL_COLOR_BUFFER_BIT);
+    glColor3ub(255, 0, 0);
+
+    /* draw white polygon (rectangle) with corners at
+     * (0.25, 0.25, 0.0) and (0.75, 0.75, 0.0)
+     */
+
+
+
+
+    canvas();
+
+    base();
+
+
+    sun(150);
+
+    sidePiller(0, 0, 0);
+
+    sidePiller(150, 0, 100);
+
+
+
+    middlePiller(0, 0, 0);
+
+
+    sidePiller(665, 0, 100);
+
+    sidePiller(815, 0, 0);
+
+
+
+
+
+
+    /* don't wait!
+     * start processing buffered OpenGL routines
+     */
+    glFlush();
+}
+
+void init(void)
+{
+    /* select clearing (background) color */
+    glClearColor(0, 0, 0, 0);
+    /* initialize viewing values */
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(-600, 600, -600, 600);
+}
+
+/*
+ * Declare initial window size, position, and display mode
+ * (single buffer and RGBA). Open window with "hello"
+ * in its title bar. Call initialization routines.
+ * Register callback function to display graphics.
+ * Enter main loop and process events.
+ */
+int main(int argc, char** argv)
+{
+
+
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(600, 600);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("Shaheed Minar");
+    init();
+    glutDisplayFunc(display);
+    glutMainLoop();
+    return 0; /* ISO C requires main to return int. */
+}
